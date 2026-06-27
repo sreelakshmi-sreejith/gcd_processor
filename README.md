@@ -153,21 +153,6 @@ Performed using Cadence Tempus for:
 
 ---
 
-# 📷 Results
-
-The repository includes:
-
-* RTL schematic
-* Functional simulation waveforms
-* Synthesis reports
-* Floorplan
-* Placement
-* Clock Tree Synthesis
-* Routing
-* Final layout
-* Timing reports
-
----
 
 # 🚀 Applications
 
