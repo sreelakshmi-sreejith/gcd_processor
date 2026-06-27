@@ -1,80 +1,95 @@
-# 🔢 4-Bit Magnitude Comparator – RTL to ASIC Physical Design
+# 🧮 GCD Processor – RTL Design and Complete ASIC Implementation
 
 ## 📌 Overview
 
-This project implements a **4-bit Magnitude Comparator** using **structural Verilog HDL**, capable of determining whether one 4-bit binary input is **greater than**, **less than**, or **equal to** another. The design was functionally verified using a comprehensive self-checking testbench and subsequently taken through a complete **ASIC implementation flow** using Cadence EDA tools.
+This project presents the design and implementation of a **Greatest Common Divisor (GCD) Processor** using **Verilog HDL**. The processor computes the Greatest Common Divisor of two 4-bit unsigned integers based on the **iterative Euclidean subtraction algorithm**.
 
-The project demonstrates the complete RTL-to-GDSII digital design methodology, including RTL modeling, functional verification, logic synthesis, floorplanning, placement, Clock Tree Synthesis (CTS), routing, timing analysis, and physical sign-off.
+The design follows a **controller-datapath architecture**, where a finite state machine (FSM) controls the arithmetic datapath to repeatedly compare and subtract the operands until the GCD is obtained.
+
+Beyond RTL implementation, the processor was taken through a complete **ASIC design flow**, including logic synthesis, floorplanning, placement, Clock Tree Synthesis (CTS), routing, and Static Timing Analysis (STA) using the Cadence digital implementation toolchain.
 
 ---
 
-# 🎯 Objectives
+# 🎯 Project Objectives
 
-* Develop a structural RTL implementation of a 4-bit magnitude comparator
-* Verify all functional comparison cases through simulation
-* Generate an optimized gate-level netlist
-* Complete physical implementation using Cadence Innovus
-* Achieve timing closure with zero setup and hold violations
+* Design a 4-bit GCD Processor using structural Verilog HDL.
+* Implement an FSM-based controller with an iterative datapath.
+* Verify functionality using a self-checking Verilog testbench.
+* Generate an optimized gate-level netlist using Cadence Genus.
+* Complete ASIC physical implementation using Cadence Innovus.
+* Achieve timing closure through Cadence Tempus.
 
 ---
 
 # ⚙️ Design Specifications
 
-| Parameter       | Value                      |
-| --------------- | -------------------------- |
-| Design          | 4-Bit Magnitude Comparator |
-| Inputs          | A[3:0], B[3:0]             |
-| Outputs         | A>B, A=B, A<B              |
-| RTL Language    | Verilog HDL                |
-| Verification    | Cadence Xcelium            |
-| Logic Synthesis | Cadence Genus              |
-| Physical Design | Cadence Innovus            |
-| Timing Analysis | Cadence Tempus             |
+| Parameter       | Value                           |
+| --------------- | ------------------------------- |
+| Design          | 4-bit GCD Processor             |
+| Algorithm       | Euclidean Subtraction Algorithm |
+| RTL Language    | Verilog HDL                     |
+| Verification    | Cadence Xcelium                 |
+| Logic Synthesis | Cadence Genus                   |
+| Physical Design | Cadence Innovus                 |
+| Timing Analysis | Cadence Tempus                  |
 
 ---
 
-# 🏗️ Functional Description
+# 🏗️ Processor Architecture
 
-The comparator evaluates two unsigned 4-bit inputs and produces one of three mutually exclusive outputs:
+The processor consists of two primary blocks:
 
-* **A > B**
-* **A = B**
-* **A < B**
+### 🔹 Controller
 
-The RTL implementation uses structural logic composed of elementary logic gates to realize the comparison function, making the design suitable for synthesis and physical implementation.
+* Finite State Machine (FSM)
+* Generates datapath control signals
+* Controls register loading and subtraction operations
+
+### 🔹 Datapath
+
+* Operand Registers
+* Comparator
+* Subtractor
+* Multiplexers
+* Output Register
+
+The controller repeatedly compares the two operands and performs subtraction until both values become equal, at which point the value represents the Greatest Common Divisor.
 
 ---
 
 # 🔄 Design Flow
 
 ```text
-RTL Design (Verilog)
-        │
-        ▼
-Functional Simulation (Cadence Xcelium)
-        │
-        ▼
+Specification
+      │
+      ▼
+RTL Design (Verilog HDL)
+      │
+      ▼
+Functional Simulation
+      │
+      ▼
 Logic Synthesis (Cadence Genus)
-        │
-        ▼
+      │
+      ▼
 Gate-Level Netlist
-        │
-        ▼
+      │
+      ▼
 Floorplanning
-        │
-        ▼
+      │
+      ▼
 Placement
-        │
-        ▼
+      │
+      ▼
 Clock Tree Synthesis (CTS)
-        │
-        ▼
+      │
+      ▼
 Routing
-        │
-        ▼
-Static Timing Analysis (Cadence Tempus)
-        │
-        ▼
+      │
+      ▼
+Static Timing Analysis
+      │
+      ▼
 Physical Sign-off
 ```
 
@@ -82,91 +97,51 @@ Physical Sign-off
 
 # 🧪 Functional Verification
 
-The RTL was verified using a self-checking Verilog testbench.
+The RTL design was verified using a comprehensive self-checking testbench that validates:
 
-Verification included:
+* Equal operands
+* A > B condition
+* A < B condition
+* Boundary cases
+* Multiple subtraction iterations
+* Correct GCD generation
 
-* All A > B combinations
-* All A < B combinations
-* Equality conditions
-* Boundary values
-* Corner cases
-* Automatic output checking
-
-The simulation achieved complete functional coverage for all comparison scenarios.
+Simulation waveforms demonstrating processor operation are included in the repository.
 
 ---
 
 # 🏭 ASIC Implementation
 
-## RTL Synthesis
+The processor was implemented using a complete RTL-to-GDSII flow.
 
-Performed using **Cadence Genus**
+### Logic Synthesis
 
-* Logic optimization
+* RTL synthesis using Cadence Genus
 * Area optimization
-* Timing-driven synthesis
+* Timing optimization
 * Gate-level netlist generation
 
----
-
-## Physical Design
-
-Completed using **Cadence Innovus**
+### Physical Design
 
 * Floorplanning
-* Power planning
 * Standard-cell placement
 * Clock Tree Synthesis (CTS)
 * Global routing
 * Detailed routing
-* Physical verification
+* Physical layout generation
 
----
+### Static Timing Analysis
 
-## Static Timing Analysis
+Performed using Cadence Tempus for:
 
-Timing verification performed using **Cadence Tempus**
-
-* Setup timing analysis
-* Hold timing analysis
+* Setup timing verification
+* Hold timing verification
 * Worst Negative Slack (WNS)
 * Total Negative Slack (TNS)
 
-The final implementation achieved:
-
-* ✅ Zero setup timing violations
-* ✅ Zero hold timing violations
-* ✅ Successful timing closure
-
 ---
 
-# 📂 Repository Structure
 
-```text
-RTL/
-├── comparator.v
-└── tb_comparator.v
-
-Simulation/
-├── Waveforms
-└── Coverage
-
-ASIC/
-├── RTL_Schematic.png
-├── Floorplan.png
-├── Placement.png
-├── CTS.png
-├── Routing.png
-├── Final_Layout.png
-├── Timing_Report.png
-└── Reports/
-
-Documentation/
-└── Project_Report.pdf
-```
-
----
 
 # 🛠️ Tools Used
 
@@ -180,30 +155,37 @@ Documentation/
 
 # 📷 Results
 
-The repository contains:
+The repository includes:
 
 * RTL schematic
-* Simulation waveforms
-* Gate-level netlist
+* Functional simulation waveforms
+* Synthesis reports
 * Floorplan
-* Placement visualization
-* CTS results
-* Routing layout
-* Final physical layout
+* Placement
+* Clock Tree Synthesis
+* Routing
+* Final layout
 * Timing reports
 
 ---
 
-# 🚀 Learning Outcomes
+# 🚀 Applications
 
-* RTL Design using Verilog HDL
-* Structural Digital Logic Design
-* Functional Verification
-* ASIC Logic Synthesis
-* Physical Design Flow
-* Clock Tree Synthesis
-* Static Timing Analysis
-* Timing Closure
+* Digital Processor Design
+* Arithmetic Processing Units
+* Embedded Hardware Accelerators
+* FPGA and ASIC Design
+* RTL Design and Verification
+* Digital VLSI Education
+
+---
+
+# 🔮 Future Improvements
+
+* Support wider operand sizes (8-bit/16-bit)
+* Optimize datapath latency
+* Implement pipelined architecture
+* Integrate with an APB/AHB interface for SoC applications
 
 ---
 
@@ -214,4 +196,10 @@ The repository contains:
 Electronics and Communication Engineering
 Government Engineering College, Thrissur
 
-**Areas of Interest:** Digital ASIC Design • RTL Design • Physical Design • FPGA • VLSI
+**Areas of Interest:** Digital ASIC Design • RTL Design • Physical Design • FPGA • Embedded Systems
+
+---
+
+## 📌 Conclusion
+
+This project demonstrates the complete development of a GCD Processor from RTL modeling to ASIC implementation. It showcases digital design principles, controller-datapath architecture, functional verification, and industry-standard physical design methodologies using Cadence EDA tools.
